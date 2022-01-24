@@ -6,10 +6,14 @@ const rollDice = (sides: number): number => {
 };
 
 const pickRandom = <T>(list: T[]): T => {
-    let dice = rollDice(list.length);
+    const dice = rollDice(list.length);
     return list[dice - 1];
 };
 
 export const generateWord = (): string => {
 	return pickRandom(words);
 }
+
+export const isValidWord = (word: string) => {
+    return words.includes(word);
+};

@@ -1,36 +1,49 @@
 <script lang="ts">
     import { Attempt } from '../routes/wordle/attempt';
-    import { createEventDispatcher } from 'svelte';
+    import { afterUpdate, createEventDispatcher } from 'svelte';
 
     const ARROW_LEFT = 'ArrowLeft';
     const ARROW_RIGHT = 'ArrowRight';
+    const BACKSPACE = 'Backspace';
+    const ENTER = 'Enter';
 
     export let attempt: Attempt;
     let inputFields = [];
 
     const dispatch = createEventDispatcher();
 
-    function onClear(index, letter) {
-        if (letter == ARROW_LEFT || letter == ARROW_RIGHT) {
+    function clear(index, letter) {
+        if ([ARROW_LEFT, ARROW_RIGHT, ENTER].includes(letter)) {
             return;
         }
         inputFields[index].value = "";
     }
 
     function onChange(index, letter) {
-        if (letter == ARROW_LEFT) {
+        if (letter == ENTER) {
+            return dispatch('stateChange', {
+                index: index,
+                letter: letter,
+                submit: true
+            });
+        }
+
+        if (letter == ARROW_LEFT || letter == BACKSPACE) {
             return moveLeft(index)
         }
+
         if (letter == ARROW_RIGHT) {
             return moveRight(index)
         }
-        if (!/[a-z]/i.test(letter)) {
-            console.log(letter);
+
+        if (letter.length > 1 || !/[a-z]/i.test(letter)) {
             return;
         }
+
         dispatch('stateChange', {
             index: index,
-            letter: letter
+            letter: letter,
+            submit: false
         });
 
         moveRight(index);
@@ -47,6 +60,10 @@
             inputFields[index - 1].focus();
         }
     }
+
+    afterUpdate(() => {
+        //focus
+    })
 </script>
 
 <div class="attempt">
@@ -59,7 +76,7 @@
                bind:this={inputFields[index]}
                value={letterState.value}
                readonly={attempt.readonly}
-               on:keydown={e => onClear(index, e.key)}
+               on:keydown={e => clear(index, e.key)}
                on:keyup={e => onChange(index, e.key)}
         />
     {/each}
@@ -73,5 +90,6 @@
         margin: 0.1em;
         text-align: center;
         text-transform: uppercase;
+        caret-color: transparent;
     }
 </style>
