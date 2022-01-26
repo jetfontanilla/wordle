@@ -12,7 +12,7 @@
 
     const dispatch = createEventDispatcher();
 
-    const isTouchDevice = ('ontouchstart' in document.documentElement);
+    let isTouchDevice = false;
 
     function clear(index, letter) {
         if (attempt.readonly) {
@@ -30,6 +30,10 @@
         }
     }
 
+    function onSubmit() {
+        dispatch('stateSubmit', {submit: true});
+    }
+
     function onChange(index: number, letter?: string) {
         if (attempt.readonly || !letter) {
             return;
@@ -37,11 +41,7 @@
 
         if (letter == ENTER) {
             resetFocus();
-            return dispatch('stateChange', {
-                index: index,
-                letter: letter,
-                submit: true
-            });
+            return onSubmit();
         }
 
         if (letter == ARROW_LEFT || letter == BACKSPACE) {
@@ -66,7 +66,7 @@
     }
 
     function onInput(index: number, letter?: string) {
-        if (attempt.readonly) {
+        if (attempt.readonly || !isTouchDevice) {
             return;
         }
         if (letter == ENTER) {
@@ -87,7 +87,6 @@
         }
 
         const inputValue = (inputFields[index].value || letter).substring(-1);
-        console.log("inputValue", inputValue);
 
         if (!inputValue || !/[a-z]/i.test(inputValue)) {
             return;
@@ -95,7 +94,7 @@
 
         dispatch('stateChange', {
             index: index,
-            letter: letter,
+            letter: inputValue,
             submit: false
         });
 
@@ -115,6 +114,7 @@
     }
 
     onMount(() => {
+        isTouchDevice = ('ontouchstart' in document.documentElement);
         resetFocus();
     })
 </script>
@@ -138,6 +138,9 @@
                class:incorrect={!(letterState.exists ?? true)}
         />
     {/each}
+    {#if isTouchDevice}
+        <button on:click={onSubmit}>Enter</button>
+    {/if}
 </div>
 
 <style>

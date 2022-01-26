@@ -31,11 +31,14 @@
 	}
 
 	function onStateChange(stateChange): void {
+		const {index, letter} = stateChange.detail;
+		currentAttempt.state[index].value = letter;
+	}
+
+	function onStateSubmit(stateChange): void {
 		if (stateChange.detail.submit) {
 			return submit();
 		}
-		const {index, letter} = stateChange.detail;
-		currentAttempt.state[index].value = letter;
 	}
 
 	function submit(): void {
@@ -101,7 +104,10 @@
 	</div>
 {:else}
 	<div class="current">
-		<TextInput attempt={currentAttempt} on:stateChange={onStateChange} />
+		<TextInput attempt={currentAttempt}
+				   on:stateChange={onStateChange}
+				   on:stateSubmit={onStateSubmit}
+		/>
 	</div>
 {/if}
 
