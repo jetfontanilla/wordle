@@ -138,8 +138,8 @@
                class:incorrect={!(letterState.exists ?? true)}
         />
     {/each}
-    {#if isTouchDevice}
-        <button on:click={onSubmit}>Enter</button>
+    {#if isTouchDevice && !attempt.readonly}
+        <button class="enter" on:click={onSubmit}>Enter</button>
     {/if}
 </div>
 
@@ -173,5 +173,10 @@
     }
     .readonly.letter:focus-visible {
         outline: none;
+    }
+    .enter {
+        height: 3em;
+        padding: 0.2em 1em;
+        margin-left: 0.5em;
     }
 </style>

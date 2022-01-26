@@ -96,11 +96,11 @@
 {#if complete}
 	<div class="section-bottom">
 		{#if win}
-			Good Job!
+			<p>Good Job!</p>
 		{:else}
-			Sorry, the actual word was <strong>{currentWordChars.join('')}</strong>
+			<p>Sorry, the actual word was <span class="answer">{currentWordChars.join('')}</span></p>
 		{/if}
-		<input type="button" on:click={initialize} value="Try Again" />
+		<button class="retry" on:click={initialize}>Try Again</button>
 	</div>
 {:else}
 	<div class="current">
@@ -129,5 +129,13 @@
 		margin-bottom: 1em;
 		text-align: center;
 	}
-
+	.answer {
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	.retry {
+		height: 3em;
+		padding: 0.2em 1em;
+		margin-left: 0.5em;
+	}
 </style>
