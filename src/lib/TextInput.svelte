@@ -32,8 +32,8 @@
         }
     }
 
-    function onChange(index, letter) {
-        if (attempt.readonly) {
+    function onChange(index: number, letter?: string) {
+        if (attempt.readonly || !letter) {
             return;
         }
         if (letter == ENTER) {
@@ -57,6 +57,7 @@
             return;
         }
 
+        inputFields[index].value = letter;
         dispatch('stateChange', {
             index: index,
             letter: letter,
