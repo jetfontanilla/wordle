@@ -12,6 +12,10 @@
 
     const dispatch = createEventDispatcher();
 
+    function isTouchDevice() {
+        return ('ontouchstart' in document.documentElement);
+    }
+
     function clear(index, letter) {
         if (attempt.readonly) {
             return;
@@ -91,6 +95,7 @@
                readonly={attempt.readonly ? "readonly" : undefined}
                on:keydown={e => clear(index, e.key)}
                on:keyup={e => onChange(index, e.key)}
+               on:input={e => onChange(index, e.key)}
                class:readonly={attempt.readonly}
                class:correct={letterState.correct}
                class:exists={!letterState.correct && letterState.exists}
