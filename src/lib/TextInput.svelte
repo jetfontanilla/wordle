@@ -44,7 +44,7 @@
                 submit: true
             });
         }
-
+        console.log("input", letter);
         if (letter == ARROW_LEFT || letter == BACKSPACE) {
             return moveLeft(index)
         }
@@ -57,6 +57,7 @@
             return;
         }
 
+        console.log("inputValue", inputFields[index].value);
         inputFields[index].value = letter;
         dispatch('stateChange', {
             index: index,
