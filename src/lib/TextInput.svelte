@@ -13,6 +13,9 @@
     const dispatch = createEventDispatcher();
 
     function clear(index, letter) {
+        if (attempt.readonly) {
+            return;
+        }
         if ([ARROW_LEFT, ARROW_RIGHT, ENTER].includes(letter)) {
             return;
         }
@@ -26,6 +29,9 @@
     }
 
     function onChange(index, letter) {
+        if (attempt.readonly) {
+            return;
+        }
         if (letter == ENTER) {
             resetFocus();
             return dispatch('stateChange', {
@@ -82,9 +88,13 @@
                pattern="[A-Za-z]"
                bind:this={inputFields[index]}
                value={letterState.value}
-               readonly={attempt.readonly}
+               readonly={attempt.readonly ? "readonly" : undefined}
                on:keydown={e => clear(index, e.key)}
                on:keyup={e => onChange(index, e.key)}
+               class:readonly={attempt.readonly}
+               class:correct={letterState.correct}
+               class:exists={!letterState.correct && letterState.exists}
+               class:incorrect={!letterState.exists}
         />
     {/each}
 </div>
@@ -98,5 +108,26 @@
         text-align: center;
         text-transform: uppercase;
         caret-color: transparent;
+        font-weight: bold;
+        color: #333;
+        border: 1px #666 solid;
+    }
+    .readonly.correct {
+        color: #fff;
+        background: #6a6;
+    }
+    .readonly.exists {
+        color: #fff;
+        background: #dc6;
+    }
+    .readonly.incorrect {
+        color: #fff;
+        background: #999;
+    }
+    .letter:focus-visible {
+        outline: #446 auto 1px;
+    }
+    .readonly.letter:focus-visible {
+        outline: none;
     }
 </style>

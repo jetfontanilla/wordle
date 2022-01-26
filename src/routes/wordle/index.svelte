@@ -25,7 +25,7 @@
 
 	function generateFreshAttempt(): Attempt {
 		return {
-			state: new Array(WORD_LENGTH).fill(undefined).map(_ => new LetterState()),
+			state: new Array(WORD_LENGTH).fill(undefined).map(() => new LetterState()),
 			readonly: false
 		};
 	}
@@ -93,9 +93,9 @@
 {#if complete}
 	<div class="section-bottom">
 		{#if win}
-			You Win!
+			Good Job!
 		{:else}
-			You lose
+			Sorry, the actual word was <strong>{currentWordChars.join('')}</strong>
 		{/if}
 		<input type="button" on:click={initialize} value="Try Again" />
 	</div>
@@ -121,6 +121,7 @@
 	.section-bottom {
 		margin-top: auto;
 		margin-bottom: 1em;
+		text-align: center;
 	}
 
 </style>
