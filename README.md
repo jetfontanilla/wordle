@@ -1,3 +1,12 @@
+# Wordle App
+
+my attempt at a simple Wordle implementation
+
+view the app in action here:
+https://jetfontanilla.github.io/wordle/wordle/
+
+
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
