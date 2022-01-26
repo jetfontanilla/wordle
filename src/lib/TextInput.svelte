@@ -12,9 +12,7 @@
 
     const dispatch = createEventDispatcher();
 
-    function isTouchDevice() {
-        return ('ontouchstart' in document.documentElement);
-    }
+    const isTouchDevice = ('ontouchstart' in document.documentElement);
 
     function clear(index, letter) {
         if (attempt.readonly) {
@@ -33,7 +31,42 @@
     }
 
     function onChange(index: number, letter?: string) {
-        if (attempt.readonly || !letter) {
+        if (isTouchDevice || attempt.readonly || !letter) {
+            return;
+        }
+
+        if (letter == ENTER) {
+            resetFocus();
+            return dispatch('stateChange', {
+                index: index,
+                letter: letter,
+                submit: true
+            });
+        }
+
+        if (letter == ARROW_LEFT || letter == BACKSPACE) {
+            return moveLeft(index)
+        }
+
+        if (letter == ARROW_RIGHT) {
+            return moveRight(index)
+        }
+
+        if (letter.length > 1 || !/[a-z]/i.test(letter)) {
+            return;
+        }
+
+        dispatch('stateChange', {
+            index: index,
+            letter: letter,
+            submit: false
+        });
+
+        moveRight(index);
+    }
+
+    function onInput(index: number, letter?: string) {
+        if (attempt.readonly) {
             return;
         }
         if (letter == ENTER) {
@@ -53,12 +86,14 @@
             return moveRight(index)
         }
 
-        if (letter.length > 1 || !/[a-z]/i.test(letter)) {
+        const inputValue = inputFields[index].value.substring(-1);
+        console.log("inputValue", inputValue);
+
+        if (!/[a-z]/i.test(inputValue)) {
             return;
         }
 
-        console.log("inputValue", inputFields[index].value);
-        inputFields[index].value = letter;
+        inputFields[index].value = inputValue;
         dispatch('stateChange', {
             index: index,
             letter: letter,
@@ -97,7 +132,7 @@
                readonly={attempt.readonly ? "readonly" : undefined}
                on:keydown={e => clear(index, e.key)}
                on:keyup={e => onChange(index, e.key)}
-               on:input={e => onChange(index, e.key)}
+               on:input={e => onInput(index, e.key)}
                class:readonly={attempt.readonly}
                class:correct={letterState.correct}
                class:exists={!letterState.correct && letterState.exists}
