@@ -94,7 +94,7 @@
                class:readonly={attempt.readonly}
                class:correct={letterState.correct}
                class:exists={!letterState.correct && letterState.exists}
-               class:incorrect={!letterState.exists}
+               class:incorrect={!(letterState.exists ?? true)}
         />
     {/each}
 </div>

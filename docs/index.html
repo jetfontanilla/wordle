@@ -7,13 +7,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Wordle App</title>
 	<link rel="stylesheet" href="/wordle/internal/assets/pages/__layout.svelte-81b60304.css">
-	<link rel="stylesheet" href="/wordle/internal/assets/pages/index.svelte-7d95003e.css">
-	<link rel="modulepreload" href="/wordle/internal/start-a41c30db.js">
+	<link rel="stylesheet" href="/wordle/internal/assets/pages/index.svelte-298a291c.css">
+	<link rel="stylesheet" href="/wordle/internal/assets/TextInput-21a33d8a.css">
+	<link rel="modulepreload" href="/wordle/internal/start-af13525a.js">
 	<link rel="modulepreload" href="/wordle/internal/chunks/vendor-40a01dac.js">
 	<link rel="modulepreload" href="/wordle/internal/pages/__layout.svelte-54a1b4e3.js">
-	<link rel="modulepreload" href="/wordle/internal/pages/index.svelte-2426907e.js">
+	<link rel="modulepreload" href="/wordle/internal/pages/index.svelte-7def3f3d.js">
+	<link rel="modulepreload" href="/wordle/internal/chunks/TextInput-1f5f7397.js">
 			<script type="module">
-				import { start } from "/wordle/internal/start-a41c30db.js";
+				import { start } from "/wordle/internal/start-af13525a.js";
 				start({
 					target: document.querySelector("#svelte"),
 					paths: {"base":"/wordle","assets":"/wordle"},
@@ -26,7 +28,7 @@
 						error: null,
 						nodes: [
 							import("/wordle/internal/pages/__layout.svelte-54a1b4e3.js"),
-						import("/wordle/internal/pages/index.svelte-2426907e.js")
+						import("/wordle/internal/pages/index.svelte-7def3f3d.js")
 						],
 						url: new URL("http://sveltekit-prerender/wordle"),
 						params: {}
@@ -44,9 +46,27 @@
 
 <main class="svelte-1l5lemn">
 
-<section class="svelte-1bgohwt"><h1 class="svelte-1bgohwt">Wordle</h1>
+<section class="svelte-1bi8bsl"><h1 class="svelte-1bi8bsl">Wordle</h1>
 
-	<a sveltekit:prefetch href="/wordle">Start Game</a>
+	<p class="svelte-1bi8bsl">Guess the WORDLE in 6 tries.<br>
+		Each guess must be a valid 5 letter word. Hit the enter button to submit.<br>
+		After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+
+	<h2 class="svelte-1bi8bsl">Examples</h2>
+
+	<div class="attempt"><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly correct" type="text" pattern="[A-Za-z]" value="H" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="E" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="L" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="L" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="O" readonly>
+</div>
+	<p class="svelte-1bi8bsl">The letter H is in the word and in the correct spot.</p>
+
+	<div class="attempt"><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="G" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly  exists" type="text" pattern="[A-Za-z]" value="R" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="E" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="A" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="T" readonly>
+</div>
+	<p class="svelte-1bi8bsl">The letter R is in the word but in the wrong spot.</p>
+
+	<div class="attempt"><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="W" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="O" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="R" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly   incorrect" type="text" pattern="[A-Za-z]" value="L" readonly><input size="1" maxlength="1" class="letter svelte-1k2v0m0 readonly" type="text" pattern="[A-Za-z]" value="D" readonly>
+</div>
+	<p class="svelte-1bi8bsl">The letter L is not in the word in any spot.</p>
+
+	<h1 class="svelte-1bi8bsl"><a sveltekit:prefetch href="wordle">Start Game</a></h1>
 </section></main>
 
 <footer></footer>
