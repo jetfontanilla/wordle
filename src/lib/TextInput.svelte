@@ -31,7 +31,7 @@
     }
 
     function onChange(index: number, letter?: string) {
-        if (isTouchDevice || attempt.readonly || !letter) {
+        if (attempt.readonly || !letter) {
             return;
         }
 
@@ -52,7 +52,7 @@
             return moveRight(index)
         }
 
-        if (letter.length > 1 || !/[a-z]/i.test(letter)) {
+        if (isTouchDevice || letter.length > 1 || !/[a-z]/i.test(letter)) {
             return;
         }
 
@@ -87,9 +87,9 @@
         }
 
         const inputValue = inputFields[index].value.substring(-1);
-        console.log("inputValue", inputValue);
+        console.log("inputValue", inputFields[index].value, inputValue);
 
-        if (!/[a-z]/i.test(inputValue)) {
+        if (!inputValue || !/[a-z]/i.test(inputValue)) {
             return;
         }
 
