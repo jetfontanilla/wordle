@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Attempt } from '../routes/wordle/attempt';
-    import { afterUpdate, createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
 
     const ARROW_LEFT = 'ArrowLeft';
     const ARROW_RIGHT = 'ArrowRight';
@@ -19,8 +19,15 @@
         inputFields[index].value = "";
     }
 
+    function resetFocus() {
+        if (!attempt.readonly) {
+            inputFields[0]?.focus();
+        }
+    }
+
     function onChange(index, letter) {
         if (letter == ENTER) {
+            resetFocus();
             return dispatch('stateChange', {
                 index: index,
                 letter: letter,
@@ -61,8 +68,8 @@
         }
     }
 
-    afterUpdate(() => {
-        //focus
+    onMount(() => {
+        resetFocus();
     })
 </script>
 

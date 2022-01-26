@@ -70,7 +70,7 @@
 			return;
 		}
 
-		if (attempts.length >= MAX_TRIES - 1) {
+		if (attempts.length >= MAX_TRIES) {
 			complete = true;
 			win = false;
 		}
@@ -83,6 +83,7 @@
 	<title>Wordle</title>
 </svelte:head>
 
+
 <div class="attempts">
 	{#each attempts as attempt}
 		<TextInput attempt={attempt} />
@@ -90,29 +91,36 @@
 </div>
 
 {#if complete}
-	{#if win}
-		You Win!
-	{:else}
-		You lose
-	{/if}
-	<input type="button" on:click={initialize} value="Try Again" />
+	<div class="section-bottom">
+		{#if win}
+			You Win!
+		{:else}
+			You lose
+		{/if}
+		<input type="button" on:click={initialize} value="Try Again" />
+	</div>
+{:else}
+	<div class="current">
+		<TextInput attempt={currentAttempt} on:stateChange={onStateChange} />
+	</div>
 {/if}
-
-<div class="current">
-	<TextInput attempt={currentAttempt}
-			   on:stateChange={onStateChange}
-	/>
-</div>
 
 <style>
 	.attempts {
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
 	}
 
 	.current {
 		display: flex;
 		justify-content: center;
+	}
+
+	.section-bottom {
+		margin-top: auto;
+		margin-bottom: 1em;
 	}
 
 </style>
