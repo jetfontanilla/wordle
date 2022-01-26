@@ -3,7 +3,7 @@
 my attempt at a simple Wordle implementation
 
 view the app in action here:
-https://jetfontanilla.github.io/wordle/wordle/
+https://jetfontanilla.github.io/wordle/
 
 
 
