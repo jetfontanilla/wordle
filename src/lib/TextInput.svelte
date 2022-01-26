@@ -77,7 +77,7 @@
                 submit: true
             });
         }
-        console.log("input", letter);
+
         if (letter == ARROW_LEFT || letter == BACKSPACE) {
             return moveLeft(index)
         }
@@ -86,14 +86,13 @@
             return moveRight(index)
         }
 
-        const inputValue = inputFields[index].value.substring(-1);
-        console.log("inputValue", inputFields[index].value, inputValue);
+        const inputValue = (inputFields[index].value || letter).substring(-1);
+        console.log("inputValue", inputValue);
 
         if (!inputValue || !/[a-z]/i.test(inputValue)) {
             return;
         }
 
-        inputFields[index].value = inputValue;
         dispatch('stateChange', {
             index: index,
             letter: letter,
