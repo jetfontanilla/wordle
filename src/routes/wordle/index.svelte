@@ -9,6 +9,7 @@
 
 	let complete = false;
 	let win = false;
+	let invalidWord = false;
 	let attempts: Attempt[] = [];
 	let currentAttempt: Attempt = generateFreshAttempt();
 	let currentWordChars: string[] = [];
@@ -31,11 +32,13 @@
 	}
 
 	function onStateChange(stateChange): void {
+		invalidWord = false;
 		const {index, letter} = stateChange.detail;
 		currentAttempt.state[index].value = letter;
 	}
 
 	function onStateSubmit(stateChange): void {
+		invalidWord = false;
 		if (stateChange.detail.submit) {
 			return submit();
 		}
@@ -48,8 +51,7 @@
 				.toLowerCase();
 
 		if (!isValidWord(currentGuess)) {
-			console.log(currentGuess, "Incorrect");
-			// play incorrect sound
+			invalidWord = true;
 			return;
 		}
 
@@ -109,6 +111,9 @@
 				   on:stateSubmit={onStateSubmit}
 		/>
 	</div>
+	{#if invalidWord}
+		<div class="invalid">not a valid word</div>
+	{/if}
 {/if}
 
 <style>
@@ -127,6 +132,10 @@
 	.section-bottom {
 		margin-top: auto;
 		margin-bottom: 1em;
+		text-align: center;
+	}
+	.invalid {
+		color: #933;
 		text-align: center;
 	}
 	.answer {
