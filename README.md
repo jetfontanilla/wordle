@@ -3,7 +3,8 @@
 my attempt at a simple Wordle implementation
 
 view the app in action here:
-https://jetfontanilla.github.io/wordle/
+* GitHub Pages: https://jetfontanilla.github.io/wordle/
+* Vercel: https://wordle-h8hpd0zzf-jetfontanilla.vercel.app/
 
 
 
