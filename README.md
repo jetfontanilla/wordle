@@ -4,7 +4,7 @@ my attempt at a simple Wordle implementation
 
 view the app in action here:
 * GitHub Pages: https://jetfontanilla.github.io/wordle/
-* Vercel: https://wordle-h8hpd0zzf-jetfontanilla.vercel.app/
+* Vercel: https://wordle-five-blue.vercel.app/
 
 
 
